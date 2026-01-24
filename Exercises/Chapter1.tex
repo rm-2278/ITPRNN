@@ -5,12 +5,15 @@
 \usepackage{titlesec}
 \usepackage{tcolorbox}
 \usepackage{enumitem}
+\usepackage[bottom=3cm]{geometry}
+\tcbuselibrary{breakable}
 \tcbuselibrary{skins}
 
 \newtcolorbox{prob}[1]{colback=gray!5!white, colframe=gray!75!black, 
 title=\textbf{Exercise #1}}
 
 \newtcolorbox{sol}{
+    breakable,
     colback=white,      % Background matches page
     colframe=white,     % Frame matches page (invisible)
     frame hidden,       % Hides the border line
@@ -59,10 +62,90 @@ so $f > 3f^2 - 2f^3$ hence error probability reduced.
     \item[(d)] Assuming $f = 0.1$, find how many repetitions are required to get the probability of error down to $10^{-15}$. [Answer: about 60.]
 \end{enumerate}
 \end{prob}
-
 \begin{sol}
+\begin{enumerate}
+\item[(a)]
+If $N$ is odd, error when $\frac{N+1}{2}$ or more bits flipped. Hence,
 
+\[
+p_b = \sum_{n=(N+1)/2}^{N} \binom{N}{n} f^n (1-f)^{N-n}
+\]
+
+\item[(b)]
+Let each term $a_n$.
+\begin{align*}
+\frac{a_{n+1}}{a_n} &= \frac{N! n! (N-n)! f^{n+1} (1-f)^{N-n-1}}{(n+1)! (N-n-1)! N! f^n (1-f)^{N-n}} \\
+&= \frac{(N-n)f}{(n+1)(1-f)} = \frac{N-n}{9(n+1)}
+\end{align*}
+Now,
+\begin{align*}
+   &\frac{N-n}{9(n+1)} > 1 \\
+  \iff & 10n + 9 < n \\
+  \iff & n < \frac{N-9}{10} \quad (< \frac{N+1}{2})
+\end{align*}
+so ratio $< 1$ for all $n \geq \frac{N+1}{2}$, meaning the series is decreasing, hence largest term is when $n = \frac{N+1}{2}$. \\
+Ratio is $\frac{N - \frac{N+1}{2}}{9(\frac{N+1}{2} + 1)} = \frac{N - 1}{9N + 11} \simeq \frac{1}{9}$. \\
+The largest term is approximately 9 times larger than second-largest term. \\
+
+\item[(c)]
+\[
+\binom{N}{n} \approx 2^{NH_2(\frac{n}{N})}
+\]
+Now,
+\begin{align*}
+  H_2(\frac{\frac{N+1}{2}}{N}) &= \frac{N+1}{2N} \log_2 (\frac{2N}{N+1}) + \frac{N-1}{2N} \log_2 (\frac{2N}{N-1}) \\
+  &\simeq \frac{1}{2} \log_2(2) + \frac{1}{2} \log_2(2) = 1
+\end{align*}
+So,
+\begin{align*}
+p_b \approx p_B &= \binom{N}{\frac{N+1}{2}} f^{\frac{N+1}{2}} (1-f)^{N - \frac{N+1}{2}}
+&\simeq 2^N f^{\frac{N}{2}}(1-f)^{\frac{N}{2}}
+&= \{4f(1-f)\}^{\frac{N}{2}}
+\end{align*}
+
+\break
+
+\item[(d)]
+\begin{align*}
+    10^{-15} &= \{4f(1-f)\}^{\frac{N}{2}} \\
+    N &= 2 \frac{-15}{\log_{10}4 \cdot 0.1 \cdot 0.9} = 67.91 \approx 68
+\end{align*}
+or more accrately,
+\begin{align*}
+    \ln \binom{N}{n} &\simeq (N-n) \log_2 \frac{N}{N-n} + n \log_2 \frac{N}{n} - \frac{1}{2} \log_2(2 \pi \frac{(N-n)n}{N}) \\
+    &= NH_2(\frac{n}{N}) - \frac{1}{2} \log(2 \pi \frac{(N-n)n}{N}) \\
+    &\xrightarrow{n \simeq \frac{N}{2}} N - \frac{1}{2} \log_2 (\frac{\pi N}{2}) \\[1em]
+\binom{N}{n} &\simeq 2 ^ {N - \frac{1}{2} \log_2 (\frac{\pi N}{2})} = \frac{2^N}{\sqrt{\frac{\pi N}{2}}}
+\end{align*}
+Then, 
+\begin{align*}
+p_b \approx p_B &\simeq \binom{N}{\frac{N+1}{2}} f^{\frac{N+1}{2}} (1-f)^{\frac{N-1}{2}} \\
+&\simeq \frac{2^N}{\sqrt{\frac{\pi N}{2}}} f \{f(1-f)\}^{\frac{N-1}{2}} = \frac{2f}{\sqrt{\frac{\pi N}{2}}} f \{4f(1-f)\}^{\frac{N-1}{2}}
+\end{align*}
+so
+\begin{align*}
+10^{-15} &= \frac{0.2}{\sqrt{\frac{\pi N}{2}}} \{4 \cdot 0.1 \cdot 0.9 \}^{\frac{N-1}{2}} \\
+\frac{N-1}{2} &= \frac{-15-\log_10 \frac{0.2}{\sqrt{\frac{\pi N}{2}}}}{\log_10 0.36} \\
+\end{align*}
+Iterate from $\hat{N}_1 = 67.6$
+\begin{align*}
+    \frac{\hat{N}_2 - 1}{2} &= 29.95 \\
+    \hat{N}_2 &= 60.90 \\
+    \hat{N}_3 &= 61.00 \\
+    \hat{N}_3 &= 61.00
+\end{align*}
+which results in 61.
+
+\end{enumerate}
 \end{sol}
+\bigskip
+
+% template
+\begin{prob}{}
+\end{prob}
+\begin{sol}
+\end{sol}
+\bigskip
 
 \end{document}
 
