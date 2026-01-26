@@ -140,6 +140,99 @@ which results in 61.
 \end{sol}
 \bigskip
 
+
+\begin{prob}{1.4}
+    Prove that this is so 
+    ($\mathbf{Ht} = 
+        \begin{bmatrix}
+            0 \\ 0 \\ 0
+        \end{bmatrix}$) 
+    by evaluating the $3 \times 4$ matrix $\mathbf{HG}^{\mathrm{T}}$
+\end{prob}
+\begin{sol}
+    $
+    \begin{bmatrix}
+        1 & 1 & 1 & 0 & 1 & 0 & 0 \\
+        0 & 1 & 1 & 0 & 0 & 1 & 0 \\
+        1 & 0 & 1 & 0 & 0 & 0 & 1 
+    \end{bmatrix}
+        \begin{bmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 \\
+        1 & 1 & 1 & 0 \\
+        0 & 1 & 1 & 1 \\
+        1 & 0 & 1 & 1
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+        0 \\
+        0 \\
+        0
+    \end{bmatrix}
+    $
+
+\end{sol}
+\bigskip
+
+\begin{prob}{1.5}
+    This exercise and the next three refer to the (7, 4) Hamming code. Decode the received strings:
+    \begin{enumerate}
+        \item[(a)] r = 1101011
+        \item[(b)] r = 0110110
+        \item[(c)] r = 0100111
+        \item[(d)] r = 1111111
+    \end{enumerate}
+\end{prob}
+\begin{sol} 
+    The following are symdrome, unflipped bit and answer.
+    \begin{enumerate}
+        \item[(a)] $z = 011, r_4, 1100011 $
+        \item[(b)] $z = 111, r_3, 0100110$
+        \item[(c)] $z = 001, r_7, 0100110$
+        \item[(d)] $z = 000, \text{None}, 1111111$
+    \end{enumerate}
+\end{sol}
+\bigskip
+
+
+\begin{prob}{1.6}
+    \begin{enumerate}
+        \item[(a)] Calculate the probability of block error $p_B$ of the
+(7, 4) Hamming code as a function of the noise level $f$ and show
+that to leading order it goes as $21f^2$.
+        \item[(b)] Show that to leading order the probability of bit error $p_b$ goes as $9f^2$
+    \end{enumerate}
+\end{prob}
+\begin{sol}
+    \begin{enumerate}
+    \item[(a)] \begin{align*}
+        p_B &= 1 - \sum_{k=0}^{1} \binom{7}{k} f^k (1-f)^{7-k} \\
+        &= 1 - (1-f)^7 - 7f(1-f)^6 \\
+        &= 1 - (1+6f)(1-f)^6 \\
+        &= 1 - (1+6f)(1-6f+15f^2 + O(f^3)) \\
+        &= 1 - (1 - 6f + 15f^2 + 6f - 36f^2 + O(f^3)) \\
+        &= 21f^2 + O(f^3)
+    \end{align*}
+    \item[(b)] Let X = the number of bits flipped in a block after decoding.
+    \begin{align*}
+        E[p_b] &= \frac{1}{7}E[X] \\
+        &= \frac{1}{7} \,  (3 \,\binom{7}{2} f^2(1-f)^5 + \sum_{3}^{7} a_k \binom{7}{k} f^k (10f)^{7-k}) \\
+        &= \frac{3}{7} \times \frac{7 \cdot 6}{2 \cdot 1} \,f^2 (1-f)^5 + O(f^3) \\
+        &= 9f^2(1-f)^5 \\
+        &= 9f^2 + O(f^3)
+    \end{align*}
+    \end{enumerate}
+\end{sol}
+\bigskip
+
+\begin{prob}{1.7}
+\end{prob}
+\begin{sol}
+\end{sol}
+\bigskip
+
 % template
 \begin{prob}{}
 \end{prob}
