@@ -228,8 +228,24 @@ that to leading order it goes as $21f^2$.
 \bigskip
 
 \begin{prob}{1.7}
+Find some noise vectors that give the all-zero syndrome
+(that is, noise vectors that leave all the parity checks unviolated). How
+many such noise vectors are there?
 \end{prob}
 \begin{sol}
+There are $2^4 = 16$ codewords, so 16 such noise vectors. This is because, by definition, codewords are the only vectors that have the property of $\mathbf{Hn} = 0$. This can be seen from the Venn diagram being uniquely filled if the first 4 bits are determined.
+\end{sol}
+\bigskip
+
+\begin{prob}{1.8}
+I asserted above that a block decoding error will result whenever two or more bits are flipped in a single block. Show that this is
+indeed so. [In principle, there might be error patterns that, after decoding, led only to the corruption of the parity bits, with no source bits
+incorrectly decoded.]
+\end{prob}
+\begin{sol}
+Assume there is a block error but no decoding error. That is, the source bit is unchanged but the parity bit is changed.
+The parity bit is deterministic from the source bit, so if the source bit is the same, the parity bit must also be the same, meaning there would be no block error.
+This contradicts with the assumption that the code has a block error, so if there is a block error, there must also be a decoding error.
 \end{sol}
 \bigskip
 
