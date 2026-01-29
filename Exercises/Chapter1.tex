@@ -249,12 +249,97 @@ This contradicts with the assumption that the code has a block error, so if ther
 \end{sol}
 \bigskip
 
-% template
-\begin{prob}{}
+\begin{prob}{1.9}
+Design an error-correcting code and a decoding algorithm for it, estimate its probability of error, and add it to figure 1.18. [Don’t
+worry if you find it difficult to make a code better than the Hamming
+code, or if you find it difficult to find a good decoder for your code; that’s
+the point of this exercise.]
 \end{prob}
 \begin{sol}
+Similar to how (7, 4) Hamming code was derived, we can draw a 4-circle Venn Diagram to create a (15, 11) code. \\
+The generator matrix would be 
+\[
+\left[
+\begin{array}{ccccccccccccccc}
+        1 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 \\
+        1 & 1 & 0 & 0 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 0 & 0 \\
+        0 & 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 & 1 & 1 & 0 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 1 \\
+\end{array}
+\right]
+\]
+This is a code with a distance of 3 (correct one bit).
 \end{sol}
 \bigskip
+
+\begin{prob}{1.10}
+     A (7, 4) Hamming code can correct any one error; might
+there be a (14, 8) code that can correct any two errors?
+Optional extra: Does the answer to this question depend on whether the
+code is linear or nonlinear?
+\end{prob}
+\begin{sol}
+For any code, the space for the received message must be larger than the space for the transmitted message which we are interested in correctly decoding.
+Now, the space for which we aim to recover in a two-bit correcting code is, (considering that we must recover the original code (and the noise))
+$$
+2^8 (\binom{14}{2} + \binom{14}{1} + \binom{14}{0}) = 2^8 (91 + 15 + 1) = 2^8 \cdot 106
+$$
+The space for the received message is
+$$
+2^14 = 2^8 \cdot 64 \, < 2^8 \cdot 106
+$$
+so it is impossible to create a (14, 8) two-bit error correcting code.
+This is regardless of whether the code is linear or non-linear.
+\end{sol}
+\bigskip
+
+\begin{prob}{1.11}
+Design an error-correcting code, other than a repetition
+code, that can correct any two errors in a block of size N.
+\end{prob}
+\begin{sol}
+Use the bipartite graph to create (30, 11) code which is two-bit error correcting.
+\end{sol}
+\bigskip
+
+\begin{prob}{1.12}
+    Consider the repetition code $R_9$. One way of viewing
+this code is as a concatenation of $R_3$ with $R_3$. We first encode the
+source stream with $R_3$, then encode the resulting output with $R_3$. We
+could call this code ‘$R_3^2$’. This idea motivates an alternative decoding
+algorithm, in which we decode the bits three at a time using the decoder
+for $R_3$; then decode the decoded bits from that first decoder using the
+decoder for $R_3$.
+Evaluate the probability of error for this decoder and compare it with
+the probability of error for the optimal decoder for $R_9$.
+Do the concatenated encoder and decoder for $R_2^3$ have advantages over
+those for $R_9$?
+\end{prob}
+\begin{sol}
+Note that the error is introduced at the channel, not the encoder. \\
+Considering the dominant term, the error probability for $R_9$ is 
+$$p_b(R_9) \simeq \binom{9}{5} f^5 (1-f^4) \simeq 126 f^5 $$
+The error probability for an error for each block in $R_3^2$ is
+$$
+p_B \simeq \binom{3}{2} f^2 (1-f) \simeq 3f^2
+$$
+and so the error probability for the entire procedure is 
+$$
+p_b \simeq \binom{3}{2} p_B^2 (1-p_B) \simeq 3 (3f^2)^2 = 27f^4
+$$
+This means the $R_3^2$ code is suboptimal in it's error correcting. \\
+Advantages are that the number of bits that needs to be seen is smaller for each operation, hence cheaper. \\
+Also, the hardware can be reused which makes the design simpler.
+\end{sol}
+\bigskip
+
+
+% % template
+% \begin{prob}{}
+% \end{prob}
+% \begin{sol}
+% \end{sol}
+% \bigskip
 
 \end{document}
 
