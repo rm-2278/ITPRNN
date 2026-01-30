@@ -25,9 +25,34 @@ title=\textbf{Exercise #1}}
 }
 
 \begin{document}
-\begin{prob}{2.1}
+\begin{prob}{2.2}
+Are the random variables X and Y in the joint ensemble
+of figure 2.2 independent?
 \end{prob}
 \begin{sol}
+No, $P(x, y) \neq P(x)P(y)$ since each row or column are not proportional to each other.
+\end{sol}
+\bigskip
+
+\begin{prob}{2.4}
+An urn contains $K$ balls, of which $B$ are black and $W = K - B$ are white. Fred draws a ball at random from the urn and replaces
+it, N times.
+\begin{enumerate}
+    \item[(a)] What is the probability distribution of the number of times a black
+ball is drawn, $n_B$?
+    \item[(b)] What is the expectation of $n_B$? What is the variance of $n_B$? What
+is the standard deviation of $n_B$? Give numerical answers for the
+cases $N = 5$ and $N = 400$, when $B = 2$ and $K = 10$.
+\end{enumerate}
+\end{prob}
+\begin{sol}
+\begin{enumerate}
+\item[(a)] $P(n_B) = \binom{N}{n_B} (\frac{B}{K})^{n_B} (\frac{K - B}{K})^{N - n_B}$
+\item[(b)] $\frac{B}{K} = \frac{1}{5}$, $\frac{K-B}{K} = \frac{4}{5}$ so the distribution is B($n$, $\frac{1}{5}$). \\[2ex]
+Hence, \, $\operatorname{E}[n_b] = \frac{1}{5}n$, $\operatorname{Var}[n_B] = \frac{1}{5}n(1-\frac{1}{5})$, $\operatorname{Std}[n_B] = \sqrt{\operatorname{Var}[n_B]}$ \\[2ex]
+For n = 5: \, $\operatorname{E}[n_b] = 1$, $\operatorname{Var}[n_B] = \frac{4}{5}$, $\operatorname{Std}[n_B] = \sqrt{\frac{4}{5}}$ \\[2ex]
+For n = 400: \, $\operatorname{E}[n_b] = 80$, $\operatorname{Var}[n_B] = 64$, $\operatorname{Std}[n_B] = 8$ \\
+\end{enumerate}
 \end{sol}
 \bigskip
 
