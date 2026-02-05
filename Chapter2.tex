@@ -272,6 +272,42 @@ Let $x$ and $y$ be dependent random variables with $x$ a binary variable taking 
 \end{sol}
 \bigskip
 
+\begin{prob}{2.20}
+    Consider a sphere of radius $r$ in an $N$-dimensional real space. Show that the fraction of the volume of the sphere that is in the surface shell lying at values of the radius between $r - \epsilon$ and $r$, where $0 < \epsilon < r$, is:
+\begin{equation}
+f = 1 - \left( 1 - \frac{\epsilon}{r} \right)^N. \tag{2.53}
+\end{equation}
+Evaluate $f$ for the cases $N = 2$, $N = 10$ and $N = 1000$, with (a) $\epsilon/r = 0.01$; (b) $\epsilon/r = 0.5$.
+
+\end{prob}
+\begin{sol}
+    $V_{\text{sphere}} \propto r^N$ so with $a$ constant,\\
+\begin{equation*}
+    f = \frac{ar^N - a(r-\epsilon)^N}{ar^N} = 1 - (1 - \frac{\epsilon}{r})^N
+\end{equation*}
+\begin{enumerate}
+    \item[(a)] 
+\begin{tabular}{c|ccc}
+    N & 2 & 100 & 1000 \\
+    \hline
+    f ($\frac{\epsilon}{r} = 0.01$) & 0.0199 & 0.63397 & 0.99996 \\
+\end{tabular}
+    \item[(b)] 
+\begin{tabular}{c|ccc}
+    N & 2 & 100 & 1000 \\
+    \hline
+    f ($\frac{\epsilon}{r} = 0.5$) & 0.75 & 1.0 & 1.0 \\
+\end{tabular}
+\end{enumerate}
+\end{sol}
+\bigskip
+
+
+\begin{prob}{}
+\end{prob}
+\begin{sol}
+\end{sol}
+\bigskip
 
 % template
 \begin{prob}{}
