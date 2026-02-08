@@ -202,7 +202,7 @@ Let D = difference of values \\[1em]
     \operatorname{Var}[S_{100}] &= 100\operatorname{Var}[s] \\
     &= 100 \left(\frac{91}{6} - \left(\frac{7}{2}\right)^2\right) = \frac{875}{3} \approx 292
 \end{align*}
-$P(S=s)$ vs $s$ Graph will be bell-curve-like between 100 and 600 with mean 350.
+$P(S=s)$ vs $s$ graph will be bell-curve-like between 100 and 600 with mean 350.
 \item[(c)] Die 1 with \{1, 2, 3, 4, 5, 6\} and die 2 with \{0, 0, 0, 6, 6, 6\}.
 \item[(d)] Make $r$th die to be $\{0, 1, 2, 3, 4, 5\} \times 6^r$ so each combination will sum to a unique number. \\
 This does not violate the CLT as variables are not identical and the Lindeberg Condition (no single variance dominate) is not satisfied.
@@ -290,24 +290,128 @@ Evaluate $f$ for the cases $N = 2$, $N = 10$ and $N = 1000$, with (a) $\epsilon/
 \begin{tabular}{c|ccc}
     N & 2 & 100 & 1000 \\
     \hline
-    f ($\frac{\epsilon}{r} = 0.01$) & 0.0199 & 0.63397 & 0.99996 \\
+    f ($\frac{\epsilon}{r} = 0.01$) & 0.0199 & 0.0956 & 0.99996 \\
 \end{tabular}
     \item[(b)] 
 \begin{tabular}{c|ccc}
-    N & 2 & 100 & 1000 \\
+    N & 2 & 10 & 1000 \\
     \hline
-    f ($\frac{\epsilon}{r} = 0.5$) & 0.75 & 1.0 & 1.0 \\
+    f ($\frac{\epsilon}{r} = 0.5$) & 0.75 & 0.999 & 1.0 \\
 \end{tabular}
 \end{enumerate}
 \end{sol}
 \bigskip
 
 
-\begin{prob}{}
+\begin{prob}{2.21}
+    Let $p_a=0.1$, $p_b=0.2$, and $p_c=0.7$. Let $f(a)=10$, $f(b)=5$, and $f(c)=10/7$. What is $\mathcal{E}[f(x)]$? What is $\mathcal{E}[1/P(x)]$?
+\end{prob}
+\begin{sol}
+    \begin{align*}
+        \mathcal{E}\left[f(x)\right] &=  \sum_{x}P(x)f(x) \\
+        &= 0.1 \cdot 10 + 0.2 \cdot 5 + 0.7 \cdot \frac{10}{7} \\
+        &= 3 \\[10pt]
+        \mathcal{E}\left[\frac{1}{P(x)}\right] &=  \sum_{x}P(x)\frac{1}{P(x)} \\
+        &= 1 + 1 + 1 = 3
+    \end{align*}
+\end{sol}
+\bigskip
+
+\begin{prob}{2.22}
+    For an arbitrary ensemble, what is $\mathcal{E}[1/P(x)]$?
+\end{prob}
+\begin{sol}
+    \begin{align*}
+        \mathcal{E}\left[\frac{1}{P(x)}\right] &=  \sum_{x}P(x)\frac{1}{P(x)} \\
+        &= \sum_{x \in \mathcal{A}_X} 1 \\
+        &= |x|
+    \end{align*}
+\end{sol}
+\bigskip
+
+
+\begin{prob}{2.23}
+    Let $p_a=0.1$, $p_b=0.2$, and $p_c=0.7$. Let $g(a)=0$, $g(b)=1$, and $g(c)=0$. What is $\mathcal{E}[g(x)]$?
+\end{prob}
+\begin{sol}
+    $$\mathcal{E}[g(x)] = 0.1 \cdot 0.1 + 0.2 \cdot 1 + 0.7 \cdot 0 = 0.2$$
+\end{sol}
+\bigskip
+
+\begin{prob}{2.24}
+    Let $p_a=0.1$, $p_b=0.2$, and $p_c=0.7$. What is the probability that $P(x) \in [0.15, 0.5]$? What is
+\[
+P \left( \left| \log \frac{P(x)}{0.2} \right| > 0.05 \right)?
+\]
+\end{prob}
+\begin{sol}
+    $x = b$ is the only possibility for $P(x) \in [0.15, 0.5]$ so 0.2. \\
+    For the second part,
+    \begin{align*}
+        &\left| \log \frac{P(x)}{0.2} \right| > 0.05 \\
+        &\iff \log \frac{P(x)}{0.2} < -0.05, \; 0.05 < \log \frac{P(x)}{0.2} \\
+        &\iff P(x) < 2^{-0.05} \cdot 0.2, \; 2^{0.05} \cdot 0.2 < P(x) \\
+        &\iff P(x) <  0.1932, \; 0.2071 < P(x) 
+    \end{align*}
+    so
+    \begin{align*}
+        P \left( \left| \log \frac{P(x)}{0.2} \right| > 0.05 \right) 
+        &\iff p_a + p_b = 0.8
+    \end{align*}
+\end{sol}
+\bigskip
+
+\begin{prob}{2.25}
+    Prove the assertion that $H(X) \leq \log(|\mathcal{A}_X|)$ with equality iff $p_i = 1/|\mathcal{A}_X|$ for all $i$. ($|\mathcal{A}_X|$ denotes the number of elements in the set $\mathcal{A}_X$.) [Hint: use Jensen's inequality (2.48); if your first attempt to use Jensen does not succeed, remember that Jensen involves both a random variable and a function, and you have quite a lot of freedom in choosing these; think about whether your chosen function $f$ should be convex or concave.]
+\end{prob}
+\begin{sol}
+    \begin{align*}
+        H(X) &= \operatorname{E}\left[\log \frac{1}{P(X)} \right] \\
+        & \leq \log (\operatorname{E}\left[\log \frac{1}{P(X)} \right]) \\
+        &= \log (|\mathcal{A}_X|) \quad (\because \text{concave})
+    \end{align*}
+    Equality when $\frac{1}{P(X)}$ is constant, i.e. $p_i$ constant, i.e. $p_i = \frac{1}{|\mathcal{A}_X|}$
+\end{sol}
+\bigskip
+
+\begin{prob}{2.26}
+    Prove that the relative entropy (equation (2.45)) satisfies $D_{\text{KL}}(P||Q) \geq 0$ (Gibbs' inequality) with equality only if $P = Q$.
+\end{prob}
+\begin{sol}
+    \begin{align*}
+    \sum_{x}P(X) \log \frac{P(X)}{Q(X)} &= \operatorname{E}\left[-\log \frac{Q(X)}{P(X)}\right] \\
+    &\leq -\log \operatorname{E}\left[\frac{Q(X)}{P(X)}\right] \\
+    &= -\log \sum_{x} Q(X) \\
+    &= -\log 1 = 0
+    \end{align*}
+Equality iff $\frac{Q(X)}{P(X)}$ constant, \\
+$\iff Q(X) = P(X) \quad (\because \sum_{x} Q(X) = \sum_{x} P(X) = 1)$
+\end{sol}
+\bigskip
+
+\begin{prob}{2.27}
+    Prove that the entropy is indeed decomposable as described in equations (2.43--2.44).
+\end{prob}
+\begin{sol}
+    Let $p_x \sim p_y = \sum_{i=1}^{x} p_i$.
+    \begin{align*}
+        H(p) &= \sum_{i=1}^{I} p_i \log \frac{1}{p_i} \\
+        &= \sum_{i=1}^{m} (p_1 \sim p_m) \frac{p_i}{p_1 \sim p_m} \log \frac{1}{p_i} + \sum_{i=m+1}^{I} (p_{m+1} \sim p_I) \frac{p_i}{p_{m+1} \sim p_I} \log \frac{1}{p_i} \\
+        &= (p_1 \sim p_m) \sum_{i=1}^{m} \frac{p_i}{p_1 \sim p_m} \log \frac{p_1 \sim p_m}{p_i} + \sum_{i=1}^{m} (p_1 \sim p_m) \frac{p_i}{p_1 \sim p_m} \log \frac{1}{p_1 \sim p_m} \\
+        &+ \sum_{i=m+1}^{I} \frac{(p_{m+1} \sim p_I)p_i}{p_{m+1} \sim p_I} \log \frac{p_{m+1} \sim p_I}{p_i} + \sum_{i=m+1}^{I}  \frac{(p_{m+1} \sim p_I)p_i}{p_{m+1} \sim p_I} \log \frac{1}{p_{m+1} \sim p_I} \\
+        &= (p_1 \sim p_m) H(\frac{p_1}{p_1 \sim p_m}, \dots , \frac{p_m}{p_1 \sim p_m}) + (p_{m+1} \sim p_I) H(\frac{p_{m+1}}{p_{m+1} \sim p_I}, \dots , \frac{p_I}{p_{m+1} \sim p_I}) \\
+        &+ H((p_1 \sim p_m), (p_{m+1} \sim p_I))
+    \end{align*}
+\end{sol}
+\bigskip
+
+
+\begin{prob}{2.28}
 \end{prob}
 \begin{sol}
 \end{sol}
 \bigskip
+
 
 % template
 \begin{prob}{}
