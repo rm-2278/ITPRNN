@@ -407,18 +407,250 @@ $\iff Q(X) = P(X) \quad (\because \sum_{x} Q(X) = \sum_{x} P(X) = 1)$
 
 
 \begin{prob}{2.28}
+A random variable $x \in \{0, 1, 2, 3\}$ is selected by flipping a bent coin with bias $f$ to determine whether the outcome is in $\{0, 1\}$ or $\{2, 3\}$; then either flipping a second bent coin with bias $g$ or a third bent coin with bias $h$ respectively. Write down the probability distribution of $x$. Use the decomposability of the entropy (2.44) to find the entropy of $X$. [Notice how compact an expression is obtained if you make use of the binary entropy function $H_2(x)$, compared with writing out the four-term entropy explicitly.] Find the derivative of $H(X)$ with respect to $f$. [Hint: $dH_2(x)/dx = \log((1-x)/x)$.]
 \end{prob}
 \begin{sol}
+    Probability distribution: \\[1em]
+    \begin{tabular}{c|c|c|c|c}
+        $x$ & $0$ & $1$ & $2$ & $3$ \\
+        \hline
+        $P(X = x)$ & $fg$ & $f(1-g)$ & $(1-f)h$ & $(1-f)(1-h)$ \\
+    \end{tabular}
+    Using the decomposability,
+    $$H(X) = H_2(f) + fH_2(g) + (1-f)H_2(h)$$
+    The derivative is,
+    $$\frac{dH(X)}{df} = \log \frac{1-f}{f} + H_2(g) - H_2(h)$$
 \end{sol}
 \bigskip
 
-
-% template
-\begin{prob}{}
+\begin{prob}{2.29}
+    An unbiased coin is flipped until one head is thrown. What is the entropy of the random variable $x \in \{1, 2, 3, \dots\}$, the number of flips? Repeat the calculation for the case of a biased coin with probability $f$ of coming up heads. [Hint: solve the problem both directly and by using the decomposability of the entropy (2.43).]
 \end{prob}
 \begin{sol}
+    Solving directly, 
+    \begin{align*}
+        H(X) &= \frac{1}{2} \log 2 + \frac{1}{4} \log 4 + \frac{1}{8} \log 8 + \frac{1}{16} \log 16 + \dots \\
+        &= (\frac{1}{2} + \frac{2}{4} + \frac{3}{8} + \frac{4}{16} + \dots) \log 2 \\
+        &= \log 2 \sum_{i=1}^{\infty} \frac{i}{2^i} \\
+        &= 2 \log 2 \quad (\because \sum_{i=1}^{\infty} ix^i = \frac{x}{(1-x)^2})\\
+        &= 2
+    \end{align*}
+    With probability $f$,
+    \begin{align*}
+        H(X) &= f \log \frac{1}{f} + (1-f)f \log \frac{1}{(1-f)f} + \dots \\
+        &= \sum_{i=1}^{\infty} -(1-f)^{i-1} f \log(f(1-f)^{i-1}) \\
+        &= \sum_{i=1}^{\infty} \left\{ -(1-f)^{i-1}f \log f + (1-i)(1-f)^{i-1}f \log(1-f) \right\} \\
+        &= \log \frac{1}{f} + \log (1-f) + f \log \frac{1}{1-f}
+    \end{align*}
+    Using decomposability,
+    \begin{align*}
+        & H(X) = H_2{f} + (1-f)H(X) \\
+        \iff & H(X) = \frac{H_2(f)}{f}
+    \end{align*}
+    which is equal to the directly calculated answer.
 \end{sol}
 \bigskip
+
+\begin{prob}{2.30}
+    An urn contains $w$ white balls and $b$ black balls. Two balls are drawn, one after the other, without replacement. Prove that the probability that the first ball is white is equal to the probability that the second is white.
+\end{prob}
+\begin{sol}
+    \begin{align}
+        P(w_1) &= \frac{w}{w+b} \\
+        P(w_2) &= P(w_2 \land w_1) + P(w_2 \land b_1) \\
+        &= \frac{w-1}{w+b-1} \times \frac{w}{w+b} + \frac{w}{w+b-1} \times \frac{b}{w+b} \\
+        &= \frac{w^2 - w + wb}{(w+b-1)(w+b)} \\
+        &= \frac{w}{w+b}
+    \end{align}
+\end{sol}
+\bigskip
+
+\begin{prob}{2.31}
+    A circular coin of diameter $a$ is thrown onto a square grid whose squares are $b \times b$. ($a < b$) What is the probability that the coin will lie entirely within one square? [Ans: $(1 - a/b)^2$]
+\end{prob}
+\begin{sol}
+    The center of the coin must be at least $\frac{a}{2}$ away from the edge of the grid.
+    Considering the ratio within each grid, $$\frac{(b-a)^2}{b^2} = (1-\frac{a}{b})^2$$ 
+\end{sol}
+\bigskip
+
+\begin{prob}{2.32}
+    \textbf{Buffon's needle.} A needle of length $a$ is thrown onto a plane covered with equally spaced parallel lines with separation $b$. What is the probability that the needle will cross a line? [Ans, if $a < b$: $2a/\pi b$] [Generalization -- Buffon's noodle: on average, a random curve of length $A$ is expected to intersect the lines $2A/\pi b$ times.]
+\end{prob}
+\begin{sol}
+    Let the angle between the lines and the needle be $\theta$, then the chance of that needle crossing a line is $\frac{a \sin \theta}{b}$. \\ 
+    Taking the average for the angle, the probability is 
+    \begin{align*}
+        \frac{1}{\pi} \int_{0}^{\pi} \frac{a \sin \theta}{b} d\theta &= \frac{1}{\pi}\left[-\frac{a}{b} \cos \theta \right]_0^\pi \\
+        &= \frac{1}{\pi}\left(\frac{a}{b} - \left(- \frac{a}{b}\right)\right) \\
+        &= \frac{2a}{\pi b}
+    \end{align*}
+\end{sol}
+\bigskip
+
+\begin{prob}{2.33}
+    Two points are selected at random on a straight line segment of length 1. What is the probability that a triangle can be constructed out of the three resulting segments?
+\end{prob}
+\begin{sol}
+    Assume $ 0 \leq x \leq y \leq x + y \leq 1$. \\
+    Then, the lengths of the three segments will be $x$, $y-x$, $1-y$. \\
+    From the triangle condition, 
+    \begin{align*}
+        &x + (y-x) > 1-y \\
+        &(y-x) + (1-y) > x \\
+        &(1-y) + x > y-x \\
+        \iff & y > \frac{1}{2}, \; x < \frac{1}{2}, \; y < x + \frac{1}{2}
+    \end{align*}
+    We will now consider the graph where $y$ and $x$ can take. We have $x \geq 0$, $y \geq 0$, $y > x$, $x + y \leq 1$ as the assumption so the total area for a valid segmentation is $\frac{1}{2} \cdot 1 \cdot \frac{1}{2} = \frac{1}{4} $. \\
+    The area within that further satisfies the above triangle condition is (by drawing the graph), $\frac{1}{2} \cdot \frac{1}{4} \cdot \frac{1}{2} = \frac{1}{16}$. \\
+    Hence, the probability we require is $\frac{\frac{1}{16}}{\frac{1}{4}} = \frac{1}{4}$.
+\end{sol}
+\bigskip
+
+\begin{prob}{2.34}
+    An unbiased coin is flipped until one head is thrown. What is the expected number of tails and the expected number of heads?
+    
+    Fred, who doesn't know that the coin is unbiased, estimates the bias using $\hat{f} \equiv h/(h + t)$, where $h$ and $t$ are the numbers of heads and tails tossed. Compute and sketch the probability distribution of $\hat{f}$.
+    
+    N.B., this is a forward probability problem, a sampling theory problem, not an inference problem. Don't use Bayes' theorem.
+\end{prob}
+\begin{sol}
+    \begin{align*}
+    \operatorname{E}[H] &= 1 \\
+    \operatorname{E}[T] &= \frac{1}{2} \cdot 0 + \frac{1}{4} \cdot 1 + \frac{1}{8} \cdot 2 + \frac{1}{16} \cdot 3 + \dots \\
+    &= \sum_{i=1}^{\infty} \frac{i}{2^{i+1}} \\
+    &= \frac{1}{2}\frac{\frac{1}{2}}{(1-\frac{1}{2})^2} = 1
+    \end{align*}
+    Now,
+    $\hat{f} = \frac{1}{1+t}$ so \\
+
+    \begin{tabular}{c|c|c|c|c|c}
+        t & 0 & 1 & 2 & 3 & 4 \\
+        \hline
+        $\hat{f}$ & $1$ & $\frac{1}{2}$ & $\frac{1}{3}$ & $\frac{1}{4}$ & $\frac{1}{5}$
+    \end{tabular}
+    \\
+
+    The graph will be a discrete version of $y = 2^{-\frac{1}{x} + 1}$.
+\end{sol}
+\bigskip
+
+\begin{prob}{2.35}
+    Fred rolls an unbiased six-sided die once per second, noting the occasions when the outcome is a six.
+    \begin{enumerate}
+        \item[(a)] What is the mean number of rolls from one six to the next six?
+        \item[(b)] Between two rolls, the clock strikes one. What is the mean number of rolls until the next six?
+        \item[(c)] Now think back before the clock struck. What is the mean number of rolls, going back in time, until the most recent six?
+        \item[(d)] What is the mean number of rolls from the six before the clock struck to the next six?
+        \item[(e)] Is your answer to (d) different from your answer to (a)? Explain.
+    \end{enumerate}
+\end{prob}
+\begin{sol}
+    \begin{enumerate}
+        \item[(a)] \begin{align*}
+        &1 \cdot \frac{1}{6} + 2 \cdot \frac{5}{6} \cdot \frac{1}{6} + 3 \cdot (\frac{5}{6})^2 \cdot \frac{1}{6} + \dots \\
+        &= \sum_{i=1}^{\infty} i (\frac{5}{6})^{i-1} \cdot \frac{1}{6} \\
+        &= \frac{1}{6} \cdot \frac{1}{(1-\frac{5}{6})^2} = 6 
+        \end{align*}
+        \item[(b)] Same as (a), so 6.
+        \item[(c)] Same as (a), so 6. 
+        \item[(d)] $6 + 6 - 1 = 11$
+        \item[(e)] It is different because the probability that a one is struck between two rolls is higher when the gap between the two rolls is wider, so it is not equal to the distribution of the mean number of rolls.
+    \end{enumerate}
+\end{sol}
+\bigskip
+
+\begin{prob}{2.36}
+    You meet Fred. Fred tells you he has two brothers, Alf and Bob.
+    
+    What is the probability that Fred is older than Bob?
+    
+    Fred tells you that he is older than Alf. Now, what is the probability that Fred is older than Bob? (That is, what is the conditional probability that $F > B$ given that $F > A$?)
+\end{prob}
+\begin{sol}
+    There are six possible ordering, FAB, FBA, AFB, ABF, BAF, BFA. Fred is older than Bob for FAB, FBA, AFB so the answer is $\frac{1}{2}$. \\
+    When it is given that Fred is older than Alf, the possible ordering reduces to FAB, FBA, BFA. Fred is older than Bob for FAB, FBA so now the answer is $\frac{2}{3}$.
+\end{sol}
+\bigskip
+
+\begin{prob}{2.37}
+    The inhabitants of an island tell the truth one third of the time. They lie with probability $2/3$.
+On an occasion, after one of them made a statement, you ask another `was that statement true?' and he says `yes'.
+    
+    What is the probability that the statement was indeed true?
+\end{prob}
+\begin{sol}
+    $$P(T|s) = \frac{P(T \land T)}{P(T \land T) + P(F \land F)} = \frac{\frac{1}{9}}{\frac{1}{9} + \frac{4}{9}} = \frac{1}{5}$$
+\end{sol}
+\bigskip
+
+\begin{prob}{2.38}
+    Compare two ways of computing the probability of error of the repetition code $R_3$, assuming a binary symmetric channel (you did this once for exercise 1.2 (p.7)) and confirm that they give the same answer. \\
+
+\textbf{Binomial distribution method.} Add the probability that all three bits are flipped to the probability that exactly two bits are flipped.\\
+    
+    \textbf{Sum rule method.} Using the sum rule, compute the marginal probability that $\mathbf{r}$ takes on each of the eight possible values, $P(\mathbf{r})$. [$P(\mathbf{r}) = \sum_s P(s)P(\mathbf{r}|s)$.] Then compute the posterior probability of $s$ for each of the eight values of $\mathbf{r}$. [In fact, by symmetry, only two example cases $\mathbf{r} = (000)$ and $\mathbf{r} = (001)$ need be considered.] Notice that some of the inferred bits are better determined than others. From the posterior probability $P(s|\mathbf{r})$ you can read out the case-by-case error probability, the probability that the more probable hypothesis is not correct, $P(\text{error}|\mathbf{r})$. Find the average error probability using the sum rule,
+    \begin{equation}
+        P(\text{error}) = \sum_{\mathbf{r}} P(\mathbf{r})P(\text{error}|\mathbf{r}). \tag{2.55}
+    \end{equation}
+\end{prob}
+\begin{sol}
+    \textbf{Binomial distribution method.} $$\binom{3}{2} f^2 (1-f) + f^3 = 3f^2 - 3f^3 + f^3 = 3f^2 - 2f^3$$
+
+    \textbf{Sum rule method.}
+    $$P(r) = \sum_{s}P(s)P(r|s)$$
+    When $r$ = 000,
+    $$P(r) = \frac{1}{2}(1-f)^3 + \frac{1}{2}f^3$$
+    $$P(\text{error}|r) = \frac{P(r|\text{error}) \cdot P(\text{error})}{P(r)} = \frac{f^3 \cdot \frac{1}{2}}{\frac{1}{2}(f^3 + (1-f)^3)} = \frac{f^3}{f^3 + (1-f)^3}$$
+    When $r$ = 001, 
+    $$P(r) = \frac{1}{2}(1-f)^2f + \frac{1}{2}(1-f)f^2 = \frac{1}{2} (1-f)f$$
+    $$P(\text{error}|r) = \frac{P(r|\text{error}) \cdot P(\text{error})}{P(r)} = \frac{f^2(1-f) \cdot \frac{1}{2}}{\frac{1}{2}f(1-f)} = f$$
+    Considering the symmetry for other $r$s, 
+    \begin{align*}
+        P(\text{error}) &= \sum_{\mathbf{r}} P(\mathbf{r})P(\text{error}|\mathbf{r}) \\
+        &= 2 \times \frac{f^3}{f^3 + (1-f)^3} \times (\frac{1}{2}(1-f)^3 + \frac{1}{2}f^3) + 6 \times f \times \frac{1}{2}(1-f)f \\
+        &= f^3 + 3f^2(1-f) \\
+        &= 3f^2 - 2f^3
+    \end{align*}
+    which matches the result from the binomial distribution method.
+
+
+\end{sol}
+\bigskip
+
+\begin{prob}{2.39}
+    The frequency $p_n$ of the $n$th most frequent word in English is roughly approximated by
+    \begin{equation}
+        p_n \simeq 
+        \begin{cases} 
+        \frac{0.1}{n} & \text{for } n \in \{1, \dots, 12\,367\} \\
+        0 & n > 12\,367.
+        \end{cases} \tag{2.56}
+    \end{equation}
+    
+    [This remarkable $1/n$ law is known as Zipf's law, and applies to the word frequencies of many languages (Zipf, 1949).] If we assume that English is generated by picking words at random according to this distribution, what is the entropy of English (per word)? 
+
+\end{prob}
+\begin{sol}
+    \begin{align*}
+        H(X) &= \sum_{n=1}^{12367} \frac{0.1}{n} \log \frac{n}{0.1} \\
+        &= \sum_{n=1}^{12367} \frac{1}{10n} \log 10n \\
+        &= \frac{1}{10} \sum_{n=1}^{12367} \frac{\log 10n}{n} \\
+        &\approx \frac{1}{10} \int_{1}^{12367} \frac{\log_2 10n}{n} dn \\
+        &= \frac{1}{10} \left[ \frac{(\log_2 10n)^2}{2 \ln 2} \right]_1^12367 \\
+        &= \frac{\ln 2}{10} \left\{ \frac{(\log 123670)^2}{2} - \frac{(\log 10)^2}{2} \right\} \\
+        &= 13.76 \ln 2 \\
+        &= 9.5377
+    \end{align*}
+\end{sol}
+\bigskip
+
+% % template
+% \begin{prob}{}
+% \end{prob}
+% \begin{sol}
+% \end{sol}
+% \bigskip
 
 \end{document}
 
