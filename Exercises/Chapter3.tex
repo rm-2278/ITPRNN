@@ -27,10 +27,117 @@ title=\textbf{Exercise #1}}
 
 \begin{document}
 
+\begin{prob}{3.1}
+    A die is selected at random from two twenty-faced dice on which the symbols 1--10 are written with nonuniform frequency as follows.
+
+\begin{center}
+\begin{tabular}{lcccccccccc}
+\hline
+Symbol & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+\hline
+Number of faces of die A & 6 & 4 & 3 & 2 & 1 & 1 & 1 & 1 & 1 & 0 \\
+Number of faces of die B & 3 & 3 & 2 & 2 & 2 & 2 & 2 & 2 & 1 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+
+The randomly chosen die is rolled 7 times, with the following outcomes:
+\[ 5, 3, 9, 3, 8, 4, 7. \]
+What is the probability that the die is die A?
+\end{prob}
+\begin{sol}
+    \begin{align*}
+        P(S|A) &= \frac{1}{20} \times \frac{3}{20} \times \frac{1}{20} \times \frac{3}{20} \times \frac{1}{20} \times \frac{2}{20} \times  \frac{1}{20} \\
+        &= \frac{18}{20^7} \\
+        P(S|B) &= \frac{2}{20} \times \frac{2}{20} \times \frac{1}{20} \times \frac{2}{20} \times \frac{2}{20} \times \frac{2}{20} \times \frac{2}{20} \\
+        &= \frac{64}{20^7} \\
+        P(A|S) &= \frac{\frac{18}{20^7} \times \frac{1}{2}}{\frac{18}{20^7} \times \frac{1}{2} + \frac{64}{20^7} \times \frac{1}{2}} \\
+        &= \frac{9}{41} \\
+    \end{align*}
+\end{sol}
+\bigskip
+
+
+\begin{prob}{3.2}
+    Assume that there is a third twenty-faced die, die C, on which the symbols 1--20 are written once each. As above, one of the three dice is selected at random and rolled 7 times, giving the outcomes:
+\[ 3, 5, 4, 8, 3, 9, 7. \]
+What is the probability that the die is (a) die A, (b) die B, (c) die C?
+\end{prob}
+\begin{sol}
+    \begin{align*}
+        P(S|A) &= \frac{3 \times 1 \times 2 \times 1 \times 3 \times 1 \times 1}{20^7} = \frac{18}{20^7} \\
+        P(S|B) &= \frac{2 \times 2 \times 2 \times 2 \times 2 \times 1 \times 2}{20^7} = \frac{64}{20^7} \\
+        P(S|C) &= \frac{1}{20^7}
+    \end{align*}
+    \begin{enumerate}
+        \item[(i)] $$P(A|S) = \frac{18}{18+64+1} = \frac{18}{83}$$ 
+        \item[(ii)]$$P(B|S) = \frac{64}{18+64+1} = \frac{64}{83}$$ 
+        \item[(iii)]  $$P(C|S) = \frac{1}{18+64+1} = \frac{1}{83}$$ 
+    \end{enumerate}
+\end{sol}
+\bigskip
+
+\begin{prob}{3.3}
+    \textbf{Inferring a decay constant} \\
+Unstable particles are emitted from a source and decay at a distance $x$, a real number that has an exponential probability distribution with characteristic length $\lambda$. Decay events can be observed only if they occur in a window extending from $x = 1\,\text{cm}$ to $x = 20\,\text{cm}$. $N$ decays are observed at locations $\{x_1, \dots, x_N\}$. What is $\lambda$?
+\end{prob}
+\begin{sol}
+    \begin{align*}
+        P(\lambda | \{ x_1, \dots , x_N\}) &= \frac{P(\{ x_1, \dots , x_N\} | \lambda) P(\lambda)}{P(\{ x_1, \dots , x_N\})} \\
+        &= \frac{P(x_1|\lambda)P(x_2|\lambda)\dots P(x_N|\lambda)P(\lambda)}{P(\{ x_1, \dots , x_N\})}
+    \end{align*}
+    Now, 
+\begin{align*}
+    P(x|\lambda)
+\begin{cases} 
+  \frac{1}{\lambda} e^{-\frac{x}{\lambda}} & \text{if } 1 \leq x \leq 20 \\
+  0 & \text{otherwise}
+\end{cases}
+\end{align*}
+and if we let 
+\begin{align*}
+    Z(\lambda) &- \int_{1}^{20} \frac{1}{\lambda} e^{-\frac{x}{\lambda}} dx \\
+    &= \left[-e^{-\frac{x}{\lambda}} \right]_1^20 \\
+    &= e^{-\frac{1}{\lambda}} - e^{-\frac{20}{\lambda}} \\
+\end{align*}
+then
+\begin{align*}
+    P(\lambda | \{ x_1, \dots , x_N\}) &= \frac{\frac{1}{\lambda} e ^{-\frac{x_1}{\lambda}} \times \frac{1}{\lambda} e ^{-\frac{x_2}{\lambda}} \times \dots \times \frac{1}{\lambda} e ^{-\frac{x_N}{\lambda}}}{(Z(\lambda))^N} P(\lambda) \\
+    &= \frac{e^{-\sum_{1}^{N} \frac{x_N}{\lambda}}P(\lambda)}{(\lambda Z(\lambda))^N}
+\end{align*}
+\end{sol}
+\bigskip
+
+\begin{prob}{3.4}
+    \textbf{Forensic evidence} \\
+Two people have left traces of their own blood at the scene of a crime. A suspect, Oliver, is tested and found to have type `O' blood. The blood groups of the two traces are found to be of type `O' (a common type in the local population, having frequency 60\%) and of type `AB' (a rare type, with frequency 1\%). Do these data (type `O' and `AB' blood were found at scene) give evidence in favour of the proposition that Oliver was one of the two people present at the crime?
+\end{prob}
+\begin{sol}
+    Let $O$ be the case that Oliver is the criminal, and $e$ the evidence.
+    \begin{align*}
+        P(O|e) &= \frac{P(e|O)P(O)}{P(e)} \\
+        &= \frac{0.01P(o)}{2 \times 0.01 \times 0.6} \\
+        &= \frac{P(O)}{1.2}
+    \end{align*}
+    so no, the posterior is lower than the prior, so the evidence is not in favour of the proposition that Oliver was one of the two people present at the crime.
+\end{sol}
+\bigskip
+
 \begin{prob}{3.5}
 \end{prob}
 \begin{sol}
     \href{https://www.desmos.com/calculator/falltenjzo}{www.desmos.com/calculator/falltenjzo}
+\end{sol}
+\bigskip
+
+\begin{prob}{3.6}
+    Show that after $F$ tosses have taken place, the biggest value that the log evidence ratio \\
+\begin{equation}
+    \log \frac{P(\mathbf{s} | F, \mathcal{H}_1)}{P(\mathbf{s} | F, \mathcal{H}_0)} \tag{3.23}
+\end{equation}
+can have scales \textit{linearly} with $F$ if $\mathcal{H}_1$ is more probable, but the log evidence in favour of $\mathcal{H}_0$ can grow at most as $\log F$.
+\end{prob}
+\begin{sol}
 \end{sol}
 \bigskip
 
