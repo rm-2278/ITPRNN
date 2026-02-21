@@ -28,6 +28,103 @@ title=\textbf{Exercise #1}}
 
 \begin{document}
 
+\begin{prob}{4.1}
+You are given 12 balls, all equal in weight except for one that is either heavier or lighter. You are also given a two-pan balance to use. In each use of the balance you may put any number of the 12 balls on the left pan, and the same number on the right pan, and push a button to initiate the weighing; there are three possible outcomes: either the weights are equal, or the balls on the left are heavier, or the balls on the left are lighter. Your task is to design a strategy to determine which is the \textit{odd ball} and whether it is \textit{heavier} or \textit{lighter} than the others \textit{in as few uses of the balance as possible}.
+
+While thinking about this problem, you may find it helpful to consider the following questions:
+
+\begin{enumerate}
+    \item[(a)] How can one measure \textit{information}?
+    \item[(b)] When you have identified the odd ball and whether it is heavy or light, how much information have you gained?
+    \item[(c)] Once you have designed a strategy, draw a tree showing, for each of the possible outcomes of a weighing, what weighing you perform next. At each node in the tree, how much information have the outcomes so far given you, and how much information remains to be gained?
+    \item[(d)] How much information is gained when you learn (i) the state of a flipped coin; (ii) the states of two flipped coins; (iii) the outcome when a four-sided die is rolled?
+    \item[(e)] How much information is gained on the first step of the weighing problem if 6 balls are weighed against the other 6? How much is gained if 4 are weighed against 4 on the first step, leaving out 4 balls?
+\end{enumerate}
+\end{prob}
+\begin{sol}
+\begin{enumerate}
+    \item[(a)] Use the entropy definition. Then, there are 24 possible situations (12 balls $\times$ 2 for lighter or heavier) with equal probability so
+    $$H(X) = \sum \frac{1}{24} \log 24 = \log 24$$
+    \item[(b)] 
+    The information gained is defined as
+    $$I(X) = H(X) - H(X|E)$$
+    When odd ball identified, 
+    \begin{align*}
+        I(X) &= H(X) - H(X|E) \\
+        &= \log 24 - \log 2 \\
+        &= \log 12
+    \end{align*}
+    When whether heavier or lighter identified,
+    \begin{align*}
+        I(X) &= H(X) - H(X|E) \\
+        &= \log 24 - \log 12 \\
+        &= \log 2 = 1
+    \end{align*}
+    \item[(c)]
+    Assign each ball with the number 1, 2, ... 12. \\
+    Step 1: Balance 1-4 against 5-8. If left pan heavier, go 2a. If right pan heavier, go 2b. Else, go 2c. \\
+    Step 2a: Balance 1,2,5 against 3,4,6. If left pan heavier, balance 1 against 2. If right pan heavier, balance 3 against 4. Else, balance 7 against 8. \\
+    Step 2b: Balance 1,5,6 against 3,7,8. If left pan heavier, balance 5 against 6. If right pan heavier, balance 7 against 8. Else, balance 3 against 4. \\
+    Step 2c: alance 1,2,3 against 9, 10, 11. If either side heavier, balance 9 against 10. Else, balance any from 1-11 against 12. \\
+    \item[(d)] \begin{enumerate}
+        \item[(i)] $\log 2 - 0 = 1$
+        \item[(ii)] $\log 4 - 0 = 2$
+        \item[(iii)] $\log 4 - 0 = 2$
+    \end{enumerate}  
+    \item[(e)] If 6 balls are weighed against each other, from either result we have 12 possible situations so the information gained is
+    $$\log 24 - \log 12 = 1$$
+    If 4 balls are weighed against each other, from any result we have 8 possible situations so the information gained is
+    $$\log 24 - \log 8 = \log 3$$
+\end{enumerate}
+\end{sol}
+\bigskip
+
+\begin{prob}{4.2}
+    Show that, if $x$ and $y$ are independent, the entropy of the outcome $x,y$ satisfies
+\begin{equation}
+    H(X,Y) = H(X) + H(Y). \tag{4.7}
+\end{equation}
+In words, entropy is additive for independent variables.
+\end{prob}
+\begin{sol}
+\begin{align*}
+    H(X, Y) &= \sum_{i, j} p_i p_j \log \frac{1}{p_i p_j} \\
+    &= \sum_{i, j} p_i p_j \log \frac{1}{p_i} + \sum_{i, j} p_i p_j \log \frac{1}{p_j}\\
+    &= \sum_{i} p_i \log \frac{1}{p_i} + \sum_{j} p_j \log \frac{1}{p_j} \quad (\because \sum_{x} p_x = 1)\\
+    &= H(X) + H(Y)
+\end{align*}
+\end{sol}
+\bigskip
+
+\begin{prob}{4.4}
+    By how much could the size of a file be reduced given that it is an ASCII file? How would you achieve this reduction?
+\end{prob}
+\begin{sol}
+    We could make it $\frac{7}{8}$ by eliminating the MSB.
+\end{sol}
+\bigskip
+
+\begin{prob}{4.5}
+Could there be a compressor that maps an outcome $x$ to a binary code $c(x)$, and a decompressor that maps $c$ back to $x$, such that \textit{every possible outcome} is compressed into a binary code of length shorter than $H_0(X)$ bits?
+\end{prob}
+\begin{sol}
+No. We need at least $|A_X|$ distinct states in $c$ to be decompressed backto $x$.
+If we let $L = \lceil \log(|A_X|) \rceil - 1 < H_0(X)$, Then
+$$2^{L} = 2^{\lceil \log(|A_X|) \rceil - 1} < 2^{\log(|A_X|)} = |A_X| $$
+which means there are not enough states if the length of compressed binary code is shorter than $x$.
+\end{sol}
+\bigskip
+
+\begin{prob}{4.8}
+What are the mathematical shapes of the curves between the cusps?
+\end{prob}
+\begin{sol}
+    As $\delta$ increases, within the same cusp $|S_\delta|$ decreases at the same rate.
+    $$H_\delta(X) = \log |S_\delta|$$
+    so the graph (within the same cusp) will be the shape of $y = \log(n-x)$ where $n$ constant (logarithmic).
+\end{sol}
+\bigskip
+
 % template
 \begin{prob}{}
 \end{prob}
