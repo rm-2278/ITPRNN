@@ -8,6 +8,7 @@
 \usepackage[bottom=3cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 \usepackage{forest}
+\usepackage{pgfplots}
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
 
@@ -260,30 +261,174 @@ ball can be identified from among $N = (3^W - 3)/2$ balls.
 
 
 \begin{prob}{4.14}
+    You are given 12 balls and the three-outcome balance of exercise 4.1; this time, \textit{two} of the balls are odd; each odd ball may be heavy or light, and we don't know which. We want to identify the odd balls and in which direction they are odd.
+\begin{enumerate}
+    \item[(a)] Estimate how many weighings are required by the optimal strategy. And what if there are three odd balls?
+    \item[(b)] How do your answers change if it is known that all the regular balls weigh $100\text{ g}$, that light balls weigh $99\text{ g}$, and heavy ones weigh $110\text{ g}$?
+\end{enumerate}
+\end{prob}
+\begin{sol}
+    \begin{enumerate}
+    \item[(a)] For 2 balls, $\binom{12}{2} \times 4 = 264$, $ 3^5 < 264 < 3^6 $ so 6 times. \\
+    
+    For 3 balls, $\binom{12}{3} \times 2^3 = 1760$, $3^6 < 1760 < 3^7$ so 7 times.
+    \item[(b)] The theoretical lower bound will still be the same, but practically the solution will be easier to find since "cancelling out" will not happen.
+\end{enumerate}
+\end{sol}
+\bigskip
+
+
+\begin{prob}{4.15}
+    Let $\mathcal{P}_X = \{0.2, 0.8\}$. Sketch $\frac{1}{N} H_\delta(X^N)$ as a function of $\delta$ for $N = 1, 2$ and $1000$.
+\end{prob}
+\begin{sol}
+N = 1 \\
+\begin{tikzpicture}
+\begin{axis}[
+    ymin=0, ymax=1,
+    minor y tick num = 3,
+    area style,
+    ]
+\addplot+[ybar interval,mark=no] plot coordinates { (0, 1) (0.2, 0) (1, 0) };
+\end{axis}
+\end{tikzpicture} \\
+N = 2 \\
+\begin{tikzpicture}
+\begin{axis}[
+    ymin=0, ymax=1,
+    minor y tick num = 3,
+    area style,
+    ]
+\addplot+[ybar interval,mark=no] plot coordinates { (0, 1) (0.04, 0.79) (0.20, 0.5) (0.36, 0) (1, 0) };
+\end{axis}
+\end{tikzpicture} \\
+N = 1000 (very rough approximate, flatten at around $0.722$) \\
+\begin{tikzpicture}
+\begin{axis}[
+    ymin=0, ymax=1,
+    minor y tick num = 3,
+    area style,
+    ]
+\addplot+[ybar interval,mark=no] plot coordinates { (0, 1) (0.01, 0.72) (0.99, 0) (1, 0) };
+\end{axis}
+\end{tikzpicture}
+\end{sol}
+\bigskip
+
+
+\begin{prob}{4.16}
+    Let $\mathcal{P}_Y = \{0.5, 0.5\}$. Sketch $\frac{1}{N} H_\delta(Y^N)$ as a function of $\delta$ for $N = 1, 2, 3$ and $100$.
+\end{prob}
+\begin{sol}
+N = 1 \\
+\begin{tikzpicture}
+\begin{axis}[
+    ymin=0, ymax=1,
+    minor y tick num = 3,
+    area style,
+    ]
+\addplot+[ybar interval,mark=no] plot coordinates { (0, 1) (0.5, 0) (1, 0) };
+\end{axis}
+\end{tikzpicture} \\
+N = 2 \\
+\begin{tikzpicture}
+\begin{axis}[
+    ymin=0, ymax=1,
+    minor y tick num = 3,
+    area style,
+    ]
+\addplot+[ybar interval,mark=no] plot coordinates { (0, 1) (0.25, 0.79) (0.5, 0.5) (0.75, 0) (1, 0) };
+\end{axis}
+\end{tikzpicture} \\
+N = 3 \\
+\begin{tikzpicture}
+\begin{axis}[
+    ymin=0, ymax=1,
+    minor y tick num = 3,
+    area style,
+    ]
+\addplot+[ybar interval,mark=no] plot coordinates { (0, 1) (0.125, 0.94) (0.25, 0.86) (0.375, 0.77) (0.5, 0.67) (0.625, 0.53) (0.75, 0.33) (0.875, 0) (1, 0) };
+\end{axis}
+\end{tikzpicture} \\
+N = 100 (rough approximation) \\
+\begin{tikzpicture}
+\begin{axis}[
+    ymin=0, ymax=1,
+    minor y tick num = 3,
+    area style,
+    ]
+\addplot+[ybar interval,mark=no] plot coordinates { (0, 1) (1, 0) };
+\end{axis}
+\end{tikzpicture} \\
+\end{sol}
+\bigskip
+
+\begin{prob}{4.17}
+    (For physics students.) Discuss the relationship between the proof of the ‘asymptotic equipartition’ principle and the equivalence (for large systems) of the Boltzmann entropy and the Gibbs entropy.
+\end{prob}
+\begin{sol}
+    Gibbs entropy: $S_G = k_B \sum_{i} p_i \ln \frac{1}{p_i}$, which is equivalent to the Shannon entropy apart from the constant factor. \\
+    Boltzmann entropy is $S_B = k_B \ln \Omega$ where $\Omega$ is the number of accessible states in a microcanonical ensemble. This is equivalent to the perfect information content $H_0$ of the ensemble apart from the constant factor. \\
+    Now, consider a thermal distribution $$P(x) = \frac{1}{Z} \exp(-\frac{E(x)}{k_B T})$$
+    Then, $$\ln P(x) = -\ln Z - \frac{E(x)}{k_B T}$$
+    This means fixing energy is equivalent to fixing the probability. Now, the AEP states that for a large number of independent components, the outcome of a certain process will almost certainly fall in the typical set. \\
+    If we set the energy of the microcanonical ensemble to the mean energy of the canonical ensemble, the microcanonical ensemble and the uniform distribution over the typical set of the canonical ensemble becomes identical due to AEP. \\
+    Hence, for large systems $S_G \approx S_B$, and for thermodynamic limit ($N \rightarrow \infty$), $S_G = S_B$.
+\end{sol}
+\bigskip
+
+\begin{prob}{4.18}
+    Sketch the Cauchy distribution
+\begin{equation}\tag{4.40}
+P(x) = \frac{1}{Z} \frac{1}{x^2 + 1}, \quad x \in (-\infty, \infty).
+\end{equation}
+What is its normalizing constant $Z$? Can you evaluate its mean or variance?
+
+\vspace{0.5em}
+\noindent Consider the sum $z = x_1 + x_2$, where $x_1$ and $x_2$ are independent random variables from a Cauchy distribution. What is $P(z)$? What is the probability distribution of the mean of $x_1$ and $x_2$, $\bar{x} = (x_1 + x_2)/2$? What is the probability distribution of the mean of $N$ samples from this Cauchy distribution?
 \end{prob}
 \begin{sol}
 \end{sol}
 \bigskip
 
+\begin{prob}{4.19}
+    Chernoff bound. We derived the weak law of large numbers from Chebyshev's inequality (4.30) by letting the random variable $t$ in the inequality $P(t \ge \alpha) \le \bar{t}/\alpha$ be a function, $t = (x - \bar{x})^2$, of the random variable $x$ we were interested in.
 
-\begin{prob}{}
+\vspace{0.5em}
+\noindent Other useful inequalities can be obtained by using other functions. The Chernoff bound, which is useful for bounding the tails of a distribution, is obtained by letting $t = \exp(sx)$.
+
+\vspace{0.5em}
+\noindent Show that
+\begin{equation}\tag{4.41}
+P(x \ge a) \le e^{-sa}g(s), \quad \text{for any } s > 0
+\end{equation}
+and
+\begin{equation}\tag{4.42}
+P(x \le a) \le e^{-sa}g(s), \quad \text{for any } s < 0
+\end{equation}
+where $g(s)$ is the moment-generating function of $x$,
+\begin{equation}\tag{4.43}
+g(s) = \sum_x P(x) e^{sx}.
+\end{equation}
 \end{prob}
 \begin{sol}
 \end{sol}
 \bigskip
-
-
-\begin{prob}{}
-\end{prob}
-\begin{sol}
-\end{sol}
-\bigskip
-
 
 % template
-\begin{prob}{}
+\begin{prob}{4.20}
+    This exercise has no purpose at all; it's included for the enjoyment of those who like mathematical curiosities.
+
+\vspace{0.5em}
+\noindent Sketch the function
+\begin{equation}\tag{4.44}
+f(x) = x^{x^{x^{x^{x^{\cdot^{\cdot^{\cdot}}}}}}}
+\end{equation}
+for $x \ge 0$. Hint: Work out the inverse function to $f$ -- that is, the function $g(y)$ such that if $x = g(y)$ then $y = f(x)$ -- it's closely related to $p \log 1/p$.
 \end{prob}
 \begin{sol}
+    Let $y = f(x)$. Then, the equation is $y = x^y$. \\
+    Rearranging, we get $\log(x) = \frac{1}{y} \log(y)$.
 \end{sol}
 \bigskip
 
