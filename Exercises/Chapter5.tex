@@ -1,0 +1,82 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage[bottom=3cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{forest}
+\usepackage{pgfplots}
+\tcbuselibrary{breakable}
+\tcbuselibrary{skins}
+
+\newtcolorbox{prob}[1]{colback=gray!5!white, colframe=gray!75!black, 
+title=\textbf{Exercise #1}}
+
+\newtcolorbox{sol}{
+    breakable,
+    colback=white,      % Background matches page
+    colframe=white,     % Frame matches page (invisible)
+    frame hidden,       % Hides the border line
+    left=3mm, right=3mm,% MATCHES the Question box padding
+    boxrule=0mm,        % No border width
+    top=0mm, bottom=0mm,% Tight vertical spacing
+    parbox=false,       % Allows paragraphs to break normally
+    before upper={\textbf{Solution:}\par\medskip} % Automatically adds "Solution:" title
+}
+
+
+\begin{document}
+
+\begin{prob}{5.8}
+\end{prob}
+\begin{sol}
+\end{sol}
+\bigskip
+
+
+\begin{prob}{5.14}
+\end{prob}
+\begin{sol}
+\end{sol}
+\bigskip
+
+
+\begin{prob}{5.16}
+\end{prob}
+\begin{sol}
+\end{sol}
+\bigskip
+
+
+\begin{prob}{5.19}
+Is the code $\{00, 11, 0101, 111, 1010, 100100, 0110\}$ uniquely decodeable?
+\end{prob}
+\begin{sol}
+No, since '111111' can be decoded as '11/11/11' or '111/111'.
+\end{sol}
+\bigskip
+
+
+\begin{prob}{5.20}
+Is the ternary code $\{00, 012, 0110, 0112, 100, 201, 212, 22\}$ uniquely decodeable?
+\end{prob}
+\begin{sol}
+This is a prefix code so yes, it is uniquely decodable.
+\end{sol}
+\bigskip
+
+% template
+\begin{prob}{}
+\end{prob}
+\begin{sol}
+\end{sol}
+\bigskip
+
+
+\end{document}
+
+
+

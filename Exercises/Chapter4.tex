@@ -388,6 +388,29 @@ What is its normalizing constant $Z$? Can you evaluate its mean or variance?
 \noindent Consider the sum $z = x_1 + x_2$, where $x_1$ and $x_2$ are independent random variables from a Cauchy distribution. What is $P(z)$? What is the probability distribution of the mean of $x_1$ and $x_2$, $\bar{x} = (x_1 + x_2)/2$? What is the probability distribution of the mean of $N$ samples from this Cauchy distribution?
 \end{prob}
 \begin{sol}
+    Sketch can be found here: \href{https://www.desmos.com/calculator/bchpkfotxz}{https://www.desmos.com/calculator/bchpkfotxz} \\
+
+    Finding the normalizing constant:
+\begin{align*}
+    \int_{-\infty}^{\infty} \frac{1}{Z} \frac{1}{x^2 + 1} dx &= 1 \\
+    \int_{-\infty}^{\infty} \frac{1}{x^2 + 1} dx &= Z \\
+    \big[ \arctan(x) \big]_{-\infty}^{\infty} &= Z \\
+    \frac{\pi}{2} - (- \frac{\pi}{2}) &= Z \\
+    Z &= \pi 
+\end{align*}
+\begin{align*}
+    E[X] &= \frac{1}{\pi} \int_{-\infty}^{\infty} \frac{x}{x^2 + 1} dx \\
+    &= \frac{1}{\pi} \{ \int_{0}^{\infty} \frac{x}{x^2 + 1} dx + \int_{-\infty}^{0} \frac{x}{x^2 + 1} dx \} \\
+    &= \frac{1}{\pi} \{ \infty - \infty \}
+\end{align*}
+so the mean is undefined, which also implies the variance is undefined.
+
+\begin{align*}
+    P(z) &= \int P(x_2 = z - x_1 | x_1)P(x_1) dx_1 \\
+    &= \int P(z - x_1)P(x_1) dx_1 \\
+    &= \int \frac{1}{\pi^2} \frac{1}{(z-x_1)^2 + 1} \cdot \frac{1}{x_1^2 + 1} dx_1 \\
+    &= \frac{1}{\pi^2} \int \frac{1}{(x_1-z)^2 + 1} \cdot \frac{1}{x_1^2 + 1} dx_1
+\end{align*}
 \end{sol}
 \bigskip
 
