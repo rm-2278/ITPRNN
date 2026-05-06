@@ -1,5 +1,5 @@
 # Information Theory, Inference and Learning Algorithms
-This repo contains LaTeX write-ups for exercises from David MacKay's **"Information Theory, Inference and Learning Algorithms"**. For the full text, see the freely available online edition at [inference.org.uk/mackay/itila/book.html](https://www.inference.org.uk/mackay/itila/book.html). If you prefer a clean, GitHub Pages view of the compiled PDFs, jump to the live docs at [rm-2278.github.io/ITPRNN](https://rm-2278.github.io/ITPRNN/).
+This repo contains LaTeX write-ups for exercises from David MacKay's **"Information Theory, Inference and Learning Algorithms"**. For the full text, see the freely available online edition at [inference.org.uk/mackay/itila/book.html](https://www.inference.org.uk/mackay/itila/book.html). If you prefer a clean, GitHub Pages view of the compiled PDFs, jump to the live docs at [rm-2278.github.io/ITILA](https://rm-2278.github.io/ITILA/).
 
 ### Chapter links
 - [Chapter 1 PDF](https://rm-2278.github.io/ITPRNN/Exercises/Chapter1.pdf)
